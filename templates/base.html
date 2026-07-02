@@ -1,0 +1,116 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_CODE == 'ar' %}dir="rtl"{% endif %}>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lamya's Cozy Knots{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {% if LANGUAGE_CODE == 'ar' %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Sidebar overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">🧶 Lamya's Cozy Knots</div>
+        <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="sidebar-section-label">{% trans "Menu" %}</div>
+        <a href="{% url 'core:home' %}">🏠 {% trans "Home" %}</a>
+        <a href="{% url 'products:list' %}">🛍️ {% trans "Shop All" %}</a>
+
+        <div class="sidebar-section-label">{% trans "Account" %}</div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'users:profile' %}">👤 {% trans "My Profile" %}</a>
+        <a href="#">📦 {% trans "My Orders" %}</a>
+        <a href="#">❤️ {% trans "Wishlist" %}</a>
+        <a href="{% url 'users:logout' %}">🚪 {% trans "Logout" %}</a>
+        {% else %}
+        <a href="{% url 'users:login' %}">👤 {% trans "Login" %}</a>
+        <a href="{% url 'users:register' %}">📝 {% trans "Register" %}</a>
+        {% endif %}
+
+        <div class="sidebar-section-label">{% trans "Info" %}</div>
+            <a href="{% url 'core:about' %}">ℹ️ {% trans "About Us" %}</a>
+            <a href="{% url 'core:contact' %}">📞 {% trans "Contact Us" %}</a>
+            <a href="{% url 'core:shipping' %}">🚚 {% trans "Shipping Info" %}</a>
+    </nav>
+    <div class="sidebar-footer">
+        <a href="{% url 'products:list' %}">{% trans "Start Shopping" %}</a>
+    </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg py-2">
+    <div class="container">
+        <button class="btn btn-link text-decoration-none me-2 p-0" onclick="openSidebar()" style="color:#f9dbbd;font-size:1.4rem;">☰</button>
+        <a class="navbar-brand" href="{% url 'core:home' %}">🧶 Lamya's Cozy Knots</a>
+
+        <div class="ms-auto d-flex align-items-center gap-3">
+            <!-- Language switcher -->
+            <form action="{% url 'set_language' %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.path }}">
+                <select name="language" onchange="this.form.submit()" class="form-select form-select-sm" style="background:var(--berry);color:#f9dbbd;border:none;width:auto">
+                    <option value="fr" {% if LANGUAGE_CODE == 'fr' %}selected{% endif %}>FR</option>
+                    <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>EN</option>
+                    <option value="ar" {% if LANGUAGE_CODE == 'ar' %}selected{% endif %}>AR</option>
+                </select>
+            </form>
+
+            <a href="#" style="color:var(--blush);text-decoration:none;">❤️</a>
+            <a href="{% url 'orders:cart' %}" style="color:var(--candy);text-decoration:none;">🛒
+                {% if request.session.cart %}({{ request.session.cart|length }}){% endif %}
+            </a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'users:profile' %}" style="color:#f9dbbd;font-size:0.9rem;text-decoration:none;">{{ user.username }}</a>
+            {% else %}
+            <a href="{% url 'users:login' %}" style="color:var(--blush);font-size:0.9rem;text-decoration:none;">{% trans "Login" %}</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<!-- Messages -->
+{% if messages %}
+<div class="container mt-2">
+    {% for message in messages %}
+    <div class="alert alert-dismissible fade show" role="alert" style="background:#f9dbbd;color:var(--bordeaux);border:1px solid var(--blush);">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main class="container my-4">
+    {% block content %}{% endblock %}
+</main>
+
+<footer style="background:var(--bordeaux);padding:2rem;text-align:center;margin-top:3rem;">
+    <p style="color:var(--blush);margin:0;">© 2026 <span style="color:var(--blush);">Lamya's Cozy Knots</span>  {% trans "Made with love in Tunisia" %} 🇹🇳</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function openSidebar() {
+    document.getElementById('sidebar').classList.add('open');
+    document.getElementById('sidebarOverlay').classList.add('open');
+}
+function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+}
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

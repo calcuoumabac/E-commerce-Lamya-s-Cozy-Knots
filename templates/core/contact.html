@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Contact - Lamya's Cozy Knots{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+
+        <div class="text-center mb-5">
+            <h1 style="color:var(--bordeaux);font-weight:700;">📞 {% trans "Contact Us" %}</h1>
+            <p style="color:var(--berry);">{% trans "We'd love to hear from you" %}</p>
+        </div>
+
+        <div class="p-4 mb-4" style="background:#fff;border-radius:16px;border:1px solid #f9dbbd;">
+            <h4 style="color:var(--blush);" class="mb-4">{% trans "Get in Touch" %}</h4>
+
+            <div class="d-flex align-items-center gap-3 mb-3 p-3" style="background:var(--blush);border-radius:12px;">
+                <span style="font-size:1.5rem;">📱</span>
+                <div>
+                    <div style="color:var(--bordeaux);font-weight:600;">WhatsApp</div>
+                    <a href="https://wa.me/21600000000" style="color:var(--blush);text-decoration:none;">+216 XX XXX XXX</a>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 mb-3 p-3" style="background:var(--blush);border-radius:12px;">
+                <span style="font-size:1.5rem;">📧</span>
+                <div>
+                    <div style="color:var(--bordeaux);font-weight:600;">{% trans "Email" %}</div>
+                    <a href="mailto:contact@lamyascozyknots.tn" style="color:var(--blush);text-decoration:none;">contact@lamyascozyknots.tn</a>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 mb-3 p-3" style="background:var(--blush);border-radius:12px;">
+                <span style="font-size:1.5rem;">📸</span>
+                <div>
+                    <div style="color:var(--bordeaux);font-weight:600;">Instagram</div>
+                    <a href="#" style="color:var(--blush);text-decoration:none;">@lamyascozyknots</a>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 p-3" style="background:var(--blush);border-radius:12px;">
+                <span style="font-size:1.5rem;">📍</span>
+                <div>
+                    <div style="color:var(--bordeaux);font-weight:600;">{% trans "Location" %}</div>
+                    <div style="color:var(--berry);">Tunisia 🇹🇳</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center p-4" style="background:linear-gradient(135deg,var(--berry),var(--blush));border-radius:16px;">
+            <p style="color:#f9dbbd;margin:0;">{% trans "Orders ship across all of Tunisia. Cash on delivery available." %} 🚚</p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Order Confirmed - Lamya's Cozy Knots{% endblock %}
+
+{% block content %}
+<div class="text-center py-4">
+    <div style="font-size:4rem;">🎉</div>
+    <h1 style="color:var(--bordeaux);font-weight:700;" class="mt-3">{% trans "Order Confirmed!" %}</h1>
+    <p style="color:var(--berry);">{% trans "Thank you for your order. We'll contact you soon to confirm." %}</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="p-4" style="background:#fff;border-radius:16px;border:1px solid var(--apricot);">
+
+            <div class="d-flex justify-content-between mb-3">
+                <span style="color:var(--berry);">{% trans "Order Number" %}</span>
+                <span style="color:var(--bordeaux);font-weight:700;">#{{ order.id }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <span style="color:var(--berry);">{% trans "Name" %}</span>
+                <span style="color:var(--bordeaux);">{{ order.full_name }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <span style="color:var(--berry);">{% trans "Phone" %}</span>
+                <span style="color:var(--bordeaux);">{{ order.phone }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <span style="color:var(--berry);">{% trans "Wilaya" %}</span>
+                <span style="color:var(--bordeaux);">{{ order.get_wilaya_display }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <span style="color:var(--berry);">{% trans "Payment" %}</span>
+                <span style="color:var(--bordeaux);">{% trans "Cash on Delivery" %}</span>
+            </div>
+
+            <hr style="border-color:var(--apricot);">
+
+            {% for item in order.items.all %}
+            <div class="d-flex justify-content-between mb-2">
+                <div>
+                    <div style="color:var(--bordeaux);font-size:0.9rem;font-weight:600;">{{ item.product_name }}</div>
+                    <div style="color:var(--berry);font-size:0.8rem;">{{ item.variant_details }} × {{ item.quantity }}</div>
+                </div>
+                <div style="color:var(--bordeaux);font-weight:600;">{{ item.subtotal }} TND</div>
+            </div>
+            {% endfor %}
+
+            <hr style="border-color:var(--apricot);">
+            <div class="d-flex justify-content-between">
+                <span style="color:var(--bordeaux);font-weight:700;">{% trans "Total" %}</span>
+                <span style="color:var(--blush);font-size:1.1rem;font-weight:700;">{{ order.total_price }} TND</span>
+            </div>
+        </div>
+
+        <div class="p-3 mt-3 text-center" style="background:linear-gradient(135deg,var(--berry),var(--blush));border-radius:12px;">
+            <p style="color:var(--apricot);margin:0;">📞 {% trans "We'll call or WhatsApp you within 24h to confirm your order." %}</p>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'core:home' %}" class="btn" style="background:var(--blush);color:#fff;border-radius:8px;padding:0.7rem 2rem;">
+                {% trans "Back to Home" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

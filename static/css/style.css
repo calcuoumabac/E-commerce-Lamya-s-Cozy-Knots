@@ -1,0 +1,187 @@
+:root {
+  --apricot: #f9dbbd;
+  --candy: #ffa5ab;
+  --blush: #da627d;
+  --berry: #a53860;
+  --bordeaux: #450920;
+  --bg: #fdf6f0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--bordeaux);
+}
+
+.navbar { background: var(--bordeaux) !important; }
+.navbar-brand { color: var(--apricot) !important; font-size: 1.2rem; }
+.nav-link { color: var(--candy) !important; }
+.nav-link:hover { color: var(--apricot) !important; }
+
+.hero-section {
+  background: linear-gradient(135deg, var(--bordeaux), var(--berry));
+  color: white;
+  border-radius: 16px;
+  padding: 80px 20px;
+}
+
+.hero-rotating {
+  color: var(--candy);
+  height: 1.8rem;
+  overflow: hidden;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-rotating span {
+  display: block;
+  animation: rotate 12s infinite;
+}
+
+@keyframes rotate {
+  0%, 18%   { transform: translateY(0); }
+  22%, 38%  { transform: translateY(-1.8rem); }
+  42%, 58%  { transform: translateY(-3.6rem); }
+  62%, 78%  { transform: translateY(-5.4rem); }
+  82%, 98%  { transform: translateY(-7.2rem); }
+  100%      { transform: translateY(0); }
+}
+
+.btn-dark, .btn-dark:focus {
+  background: var(--blush) !important;
+  border-color: var(--blush) !important;
+  color: #fff !important;
+}
+.btn-dark:hover {
+  background: var(--berry) !important;
+  border-color: var(--berry) !important;
+}
+
+.btn-outline-light {
+  border-color: rgba(249,219,189,0.5) !important;
+  color: var(--apricot) !important;
+}
+.btn-outline-light:hover {
+  background: rgba(249,219,189,0.1) !important;
+}
+
+.product-card {
+  border: 1px solid var(--apricot) !important;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 12px;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(165,56,96,0.12) !important;
+  border-color: var(--blush) !important;
+}
+
+.category-card {
+  border: 1px solid var(--apricot) !important;
+  transition: transform 0.2s;
+  border-radius: 12px;
+}
+.category-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--blush) !important;
+}
+
+/* Sidebar */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(69,9,32,0.5);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.sidebar-overlay.open { opacity: 1; pointer-events: all; }
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 280px;
+  background: var(--bordeaux);
+  z-index: 300;
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar.open { transform: translateX(0); }
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--berry);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sidebar-logo { color: var(--apricot); font-size: 1.1rem; font-weight: 600; }
+.sidebar-close { background: none; border: none; color: var(--candy); font-size: 1.4rem; cursor: pointer; }
+
+.sidebar-nav { flex: 1; padding: 1rem 0; }
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.85rem 1.5rem;
+  color: var(--candy);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+}
+.sidebar-nav a:hover {
+  background: rgba(255,165,171,0.1);
+  color: var(--apricot);
+  border-left-color: var(--blush);
+}
+
+.sidebar-section-label {
+  padding: 1rem 1.5rem 0.4rem;
+  color: var(--berry);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--berry); }
+.sidebar-footer a {
+  display: block;
+  text-align: center;
+  padding: 0.7rem;
+  background: var(--blush);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.sidebar-footer a:hover { background: var(--berry); }
+
+.thumbnail-img:hover { border-color: var(--blush) !important; }
+
+/* Reusable card style */
+.info-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--apricot);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Form inputs */
+.form-control:focus {
+  border-color: var(--blush) !important;
+  box-shadow: 0 0 0 0.2rem rgba(218,98,125,0.15) !important;
+}
+
+/* Alert messages */
+.alert-brand {
+  background: var(--apricot);
+  color: var(--bordeaux);
+  border: 1px solid var(--blush);
+}

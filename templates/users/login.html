@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Login - Lamya's Cozy Knots{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="p-4" style="background:#fff;border-radius:16px;border:1px solid #f9dbbd;">
+            <div class="text-center mb-4">
+                <span style="font-size:2.5rem;">🧶</span>
+                <h2 style="color:var(--bordeaux);font-weight:700;">{% trans "Welcome back" %}</h2>
+                <p style="color:var(--berry);font-size:0.9rem;">{% trans "Login to your account" %}</p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label style="color:var(--bordeaux);font-weight:600;font-size:0.9rem;">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <div style="color:var(--blush);font-size:0.8rem;margin-top:4px;">{{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="btn w-100 mt-2" style="background:var(--blush);color:#fff;font-weight:600;padding:0.75rem;border-radius:8px;">
+                    {% trans "Login" %}
+                </button>
+            </form>
+
+            <p class="text-center mt-3" style="color:var(--berry);font-size:0.9rem;">
+                {% trans "Don't have an account?" %}
+                <a href="{% url 'users:register' %}" style="color:#da627d;font-weight:600;">{% trans "Register" %}</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

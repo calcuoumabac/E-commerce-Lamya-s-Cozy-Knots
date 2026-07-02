@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}My Profile - Lamya's Cozy Knots{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+
+        <div class="text-center mb-4">
+            <div style="width:70px;height:70px;background:var(--blush);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.8rem;color:#fff;">
+                {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
+            </div>
+            <h2 style="color:var(--bordeaux);font-weight:700;">{{ user.get_full_name }}</h2>
+            <p style="color:var(--berry);">{{ user.email }}</p>
+        </div>
+
+        <div class="p-4" style="background:#fff;border-radius:16px;border:1px solid #f9dbbd;">
+            <h5 style="color:var(--blush);" class="mb-4">{% trans "Edit Profile" %}</h5>
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label style="color:var(--bordeaux);font-weight:600;font-size:0.9rem;">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <div style="color:var(--blush);font-size:0.8rem;margin-top:4px;">{{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn w-100 mt-2" style="background:var(--blush);color:#fff;font-weight:600;padding:0.75rem;border-radius:8px;">
+                    {% trans "Save Changes" %}
+                </button>
+            </form>
+        </div>
+
+        <div class="mt-3 text-center">
+            <a href="{% url 'users:logout' %}" style="color:var(--berry);font-size:0.9rem;">🚪 {% trans "Logout" %}</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}Lamya's Cozy Knots{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<div class="hero-section text-center py-5 mb-5">
+    <p style="color:var(--blush);font-size:0.8rem;letter-spacing:1px;text-transform:uppercase;">New Collection 2026</p>
+    <h1 class="display-4 fw-bold" style="color:#f9dbbd;">Lamya's Cozy Knots</h1>
+    <div class="hero-rotating">
+        <span>
+            Handmade with love ✦<br>
+            Limited stock ✦<br>
+            order now ✦<br>
+            High quality ✦<br>
+            Your style, your story ✦
+        </span>
+    </div>
+    <a href="{% url 'products:list' %}" class="btn btn-dark btn-lg mt-2">
+        {% trans "Shop Now" %}
+    </a>
+</div>
+
+<!-- Categories -->
+{% if categories %}
+<section class="mb-5">
+    <h2 class="mb-1" style="color:var(--bordeaux);">{% trans "Shop by Category" %}</h2>
+    <p class="mb-4" style="color:var(--berry);font-size:0.9rem;">{% trans "Find the perfect bag for every occasion" %}</p>
+    <div class="row g-3">
+        {% for category in categories %}
+        <div class="col-6 col-md-3">
+            <a href="{% url 'products:list' %}?category={{ category.slug }}" class="text-decoration-none">
+                <div class="card text-center h-100 border-0 shadow-sm category-card">
+                    {% if category.image %}
+                    <img src="{{ category.image.url }}" class="card-img-top" alt="{{ category.name }}" style="height:150px;object-fit:cover;">
+                    {% else %}
+                    <div class="d-flex align-items-center justify-content-center" style="height:150px;background:#f9dbbd;">
+                        <span style="font-size:3rem;">👜</span>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h6 class="card-title fw-bold" style="color:var(--bordeaux);">{{ category.name }}</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Products -->
+<section class="mb-5">
+    <h2 class="mb-1" style="color:var(--bordeaux);">{% trans "New Arrivals" %}</h2>
+    <p class="mb-4" style="color:var(--berry);font-size:0.9rem;">{% trans "Fresh pieces, just added" %}</p>
+    <div class="row g-4">
+        {% for product in featured_products %}
+        <div class="col-6 col-md-3">
+            {% include 'products/product_card.html' %}
+        </div>
+        {% empty %}
+        <p style="color:var(--berry);">{% trans "No products yet." %}</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Banner -->
+<div class="text-center py-5 mb-4" style="background:linear-gradient(135deg,var(--berry),var(--blush));border-radius:16px;">
+    <h2 style="color:#f9dbbd;font-weight:700;">{% trans "Handmade in Tunisia" %} 🇹🇳</h2>
+    <p style="color:var(--apricot);">{% trans "Every piece is crafted with care , limited quantities, real quality." %}</p>
+    <a href="{% url 'products:list' %}" class="btn btn-dark">{% trans "See All Products" %}</a>
+</div>
+
+{% endblock %}

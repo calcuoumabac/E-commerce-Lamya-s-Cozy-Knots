@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Checkout - Lamya's Cozy Knots{% endblock %}
+
+{% block content %}
+<h2 style="color:var(--bordeaux);font-weight:700;" class="mb-4">📦 {% trans "Checkout" %}</h2>
+
+<div class="row g-4">
+    <div class="col-md-7">
+        <div class="p-4" style="background:#fff;border-radius:16px;border:1px solid var(--apricot);">
+            <h5 style="color:var(--blush);" class="mb-4">{% trans "Delivery Information" %}</h5>
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label style="color:var(--bordeaux);font-weight:600;font-size:0.9rem;">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <div style="color:var(--blush);font-size:0.8rem;margin-top:4px;">{{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <div class="p-3 mt-3 mb-4" style="background:var(--bg);border-radius:12px;border:1px solid var(--apricot);">
+                    <div style="color:var(--bordeaux);font-weight:600;">💵 {% trans "Payment Method" %}</div>
+                    <div style="color:var(--berry);font-size:0.9rem;margin-top:4px;">{% trans "Cash on Delivery — pay when your order arrives." %}</div>
+                </div>
+
+                <button type="submit" class="btn w-100" style="background:var(--blush);color:#fff;font-weight:600;padding:0.75rem;border-radius:8px;font-size:1rem;">
+                    ✅ {% trans "Place Order" %}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="p-4" style="background:#fff;border-radius:16px;border:1px solid var(--apricot);">
+            <h5 style="color:var(--blush);" class="mb-3">{% trans "Your Order" %}</h5>
+            {% for item in items %}
+            <div class="d-flex justify-content-between mb-2">
+                <div>
+                    <div style="color:var(--bordeaux);font-size:0.9rem;font-weight:600;">{{ item.product_name }}</div>
+                    <div style="color:var(--berry);font-size:0.8rem;">{{ item.variant_details }} × {{ item.quantity }}</div>
+                </div>
+                <div style="color:var(--bordeaux);font-weight:600;">{{ item.subtotal }} TND</div>
+            </div>
+            {% endfor %}
+            <hr style="border-color:var(--apricot);">
+            <div class="d-flex justify-content-between">
+                <span style="color:var(--bordeaux);font-weight:700;">{% trans "Total" %}</span>
+                <span style="color:var(--blush);font-size:1.1rem;font-weight:700;">{{ total }} TND</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
