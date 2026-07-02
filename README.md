@@ -25,9 +25,9 @@ A full e-commerce website for a Tunisian handmade bags brand, built with Django 
 - Shipping management by wilaya
 
 ## Run locally
-git clone ...
-cd ecommerce
-cp .env.example .env
-docker compose up --build
-docker compose exec web python manage.py migrate
-docker compose exec web python manage.py createsuperuser
+- git clone ...
+- cd ecommerce
+- cp .env.example .env
+- docker compose up --build
+- docker compose exec web python manage.py migrate
+- docker compose exec web python manage.py createsuperuser
